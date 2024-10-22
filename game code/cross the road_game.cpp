@@ -1,6 +1,7 @@
 #include <iostream>
 #include <deque>
 #include <vector>
+#include <conio.h>
 using namespace std;
 
 class cPlayer
@@ -61,10 +62,32 @@ class cGame
     }
   }
   void Input(){
+    if(_kbhit())
+    {
+      char currtent =_getch();
+      if(currtent == 'a')
+        player->x--;
+      if(currtent =='d')
+         player ->y--;
+      if(currtent =='w')
+          player->y++;
+      if(currtent =='s')
+         player ->y++;
+      if(currtent == 'q')
 
+      quit = true;
+      
+    }
   }
   void Logic(){
-
+  for(int i = 0; i < numberOfLanes -1; i++)
+  {
+    if(rand()%10 ==1)
+      map[i]->Move();
+    if(map[i]->CheckPos(player->x) && player->y == i)
+      quit =true;
+  }
+  
   }
   void Run(){
      while(!quit){
@@ -77,26 +100,6 @@ class cGame
 };
 int main()
 {
-  cLane lane1(10);
-  for (int i =0 ; i <20 ; i++){
-
-     if (lane1.CheckPos(i))
-     cout << "1";
-     else
-     cout <<"0" ;
-  }
-  lane1.Move();
-  lane1.Move();
-  lane1.Move();
-  lane1.Move();
-  cout << endl;
-
-   for (int i =0 ; i <20 ; i++){
-
-     if (lane1.CheckPos(i))
-     cout << "1";
-     else
-     cout <<"0" ;
 cGame game(30,5);
  getchar();
  game.Run();
